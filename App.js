@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Button,
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -33,13 +34,19 @@ export default function App() {
         <Button title="Add job" onPress={handlePressAdd} />
       </View>
       <View style={styles.listJobContainer}>
-        <ScrollView>
-          {listJobs.map((job, index) => (
-            <View key={index} style={styles.singleJobContainer}>
-              <Text style={styles.singleJobText}>{job}</Text>
-            </View>
-          ))}
-        </ScrollView>
+        <FlatList
+          data={listJobs}
+          renderItem={(itemJob) => {
+            return (
+              <View style={styles.singleJobContainer}>
+                <Text style={styles.singleJobText}>{itemJob.item}</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item, index) => {
+            return index;
+          }}
+        />
       </View>
     </View>
   );
@@ -68,7 +75,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   listJobContainer: {
-    flex: 9,
+    flex: 4,
     paddingTop: 8,
   },
   singleJobContainer: {
