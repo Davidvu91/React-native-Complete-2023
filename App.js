@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function App() {
   const [currentText, setCurrentText] = useState("");
@@ -13,7 +20,7 @@ export default function App() {
     setListJobs((prev) => [...prev, currentText]);
     setCurrentText("");
   };
-  console.log(listJobs);
+  // console.log(listJobs);
   return (
     <View style={styles.container}>
       <View style={styles.inputContaier}>
@@ -26,9 +33,13 @@ export default function App() {
         <Button title="Add job" onPress={handlePressAdd} />
       </View>
       <View style={styles.listJobContainer}>
-        {listJobs.map((job, index) => (
-          <Text key={index}>{job}</Text>
-        ))}
+        <ScrollView>
+          {listJobs.map((job, index) => (
+            <View key={index} style={styles.singleJobContainer}>
+              <Text style={styles.singleJobText}>{job}</Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -57,7 +68,17 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   listJobContainer: {
-    flex: 4,
-    paddingTop: 25,
+    flex: 9,
+    paddingTop: 8,
+  },
+  singleJobContainer: {
+    backgroundColor: "#672997",
+    padding: 8,
+    marginBottom: 8,
+    marginTop: 8,
+    borderRadius: 5,
+  },
+  singleJobText: {
+    color: "#FFFFFF",
   },
 });
